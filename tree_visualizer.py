@@ -1,30 +1,23 @@
 from copy import deepcopy
 example_dict = {
-'pets':[{
-    'cat': [
-        {'frita':[]},
-        {'george':[]},
-        {'carl':[]},
-    ],
-    'dog': [ 
-        {'fido':[]},
-    ]
-}],
-'children':[{
-    'fam1': [
-        {'frita':[]},
-        {'george':[]},
-        {'carl':[]},
-    ],
-    'fam2': []},
-    ]
+'pets':{
+    'cat': 
+        {'frita':{},
+        'george':{},
+        'carl':{}},
+    'dog':  
+        {'fido':{}}
+},
+'children':{
+    'fam1':
+        {'frita':{},
+        'george':{},
+        'carl':{}},
+    'fam2': {},
+    }
 }
 
-#print(example_dict)
-
-def viz_tree(dictionary, depth, has_parent, has_sibling):
-    for index, key in enumerate(dictionary):
-        pass
+def viz_tree(dictionary, depth = [], has_parent = False, has_sibling = False):
     for index, key in enumerate(dictionary):
         string = ''
         new_depth = deepcopy(depth)
@@ -69,9 +62,15 @@ def viz_tree(dictionary, depth, has_parent, has_sibling):
         string += key
         print(string)
         has_children(dictionary, key)
-        for list_index, child_dictionary in enumerate(dictionary[key]):
-            has_sibling = (list_index != len(dictionary[key]) - 1)
-            viz_tree(child_dictionary, new_depth, has_parent = True, has_sibling =has_sibling)
+        child_dictionary = dictionary[key]
+            
+        has_sibling = False#(list_index != len(dictionary))
+        viz_tree(child_dictionary, new_depth, has_parent = True, has_sibling =has_sibling)
+
+def viz_tree_2(dictionary):
+    for i in dictionary:
+        print(i)
+        viz_tree_2(dictionary[i])
 
 def has_children(dictionary, key):
     if len(dictionary[key]):
@@ -79,7 +78,8 @@ def has_children(dictionary, key):
     else:
         return False
 
-viz_tree(example_dict, [], has_parent = False, has_sibling = False)
+viz_tree(example_dict, has_sibling = False)
+#viz_tree_2(example_dict)
 
 # ┌├└│ ─
 # unicode: http://www.unicode.org/charts/PDF/U2500.pdf
